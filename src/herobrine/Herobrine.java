@@ -4,6 +4,7 @@ import herobrine.ai.TaskManager;
 import herobrine.event.EventManager;
 import herobrine.plugin.PluginManager;
 import herobrine.plugins.test.TestPlugin;
+
 import net.minecraft.client.Minecraft;
 
 public class Herobrine implements Runnable {

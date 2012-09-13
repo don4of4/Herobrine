@@ -1,5 +1,6 @@
 package net.minecraft.src;
 
+import herobrine.event.EventManager;
 import herobrine.event.controller.ChatEvent;
 
 import java.io.BufferedReader;
@@ -648,7 +649,9 @@ public class NetClientHandler extends NetHandler
 
     public void handleChat(Packet3Chat par1Packet3Chat)
     {
-    	herobrine.event.EventManager.queue(new ChatEvent(par1Packet3Chat.message));
+    	/* Herobrine Begin */
+    	EventManager.queue(new ChatEvent(par1Packet3Chat.message));
+    	/* Herobrine End */
         this.mc.ingameGUI.getChatGUI().printChatMessage(par1Packet3Chat.message);
     }
 
@@ -854,6 +857,8 @@ public class NetClientHandler extends NetHandler
 
     public void handleExplosion(Packet60Explosion par1Packet60Explosion)
     {
+        // TODO: Explosion Event
+    	
         Explosion var2 = new Explosion(this.mc.theWorld, (Entity)null, par1Packet60Explosion.explosionX, par1Packet60Explosion.explosionY, par1Packet60Explosion.explosionZ, par1Packet60Explosion.explosionSize);
         var2.field_77281_g = par1Packet60Explosion.field_73613_e;
         var2.doExplosionB(true);
@@ -864,6 +869,8 @@ public class NetClientHandler extends NetHandler
 
     public void handleOpenWindow(Packet100OpenWindow par1Packet100OpenWindow)
     {
+        // TODO: GuiOpen Event
+    	
         EntityClientPlayerMP var2 = this.mc.thePlayer;
 
         switch (par1Packet100OpenWindow.inventoryType)
@@ -1036,6 +1043,7 @@ public class NetClientHandler extends NetHandler
 
     public void handleCloseWindow(Packet101CloseWindow par1Packet101CloseWindow)
     {
+    	// TODO: GuiClosed Event
         this.mc.thePlayer.closeScreen();
     }
 
