@@ -1,23 +1,28 @@
 package me.herobrine.gui;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Insets;
+
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 import bsh.util.JConsole;
 
 public class Console extends JConsole {
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		super.requestFocus();
-		super.mouseClicked(e);
+	public Console() {
+		super();
+		super.setFont(new Font("Monospaced", 0, 11));
+		super.setViewportBorder(new EmptyBorder(0, 0, 0, 0));
+		
+		JTextPane text = (JTextPane)viewport.getView();
+		text.setMargin(new Insets(2, 2, 2, 2));
+		
+		text.setBackground(Color.black);
+		text.setForeground(Color.white);
+		
+		text.setCaretColor(Color.white);
 	}
-
-	@Override
-	public void keyPressed(KeyEvent paramKeyEvent) {
-		super.keyPressed(paramKeyEvent);
-	}
-
-	
 	
 }
