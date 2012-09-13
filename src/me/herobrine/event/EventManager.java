@@ -1,6 +1,5 @@
 package me.herobrine.event;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,7 +30,7 @@ public class EventManager {
 			try {
 				Method method = handler.getClass().getMethod("handleEvent", event.getClass());
 				method.invoke(handler, event);
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
