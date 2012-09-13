@@ -27,8 +27,14 @@ public class World {
 	public static <T extends Entity> List<T> getEntities(Class<T> entityType) {
 		List<T> entities = new ArrayList<T>();
 		
-		List<net.minecraft.src.Entity> mcEntities = Herobrine.mc.theWorld.getLoadedEntityList();
-		for(net.minecraft.src.Entity mcEntity : mcEntities.toArray(new net.minecraft.src.Entity[0])) {
+		for(Entity entity : World.getEntities()) {
+			if(entityType.isInstance(entity)) {
+				entities.add((T) entity);
+			}
+		}
+		
+		
+		/*for(net.minecraft.src.Entity mcEntity : mcEntities.toArray(new net.minecraft.src.Entity[0])) {
 			if(entityType.isAssignableFrom(EntityType.fromId(EntityList.getEntityID(mcEntity)).getEntityClass())) {
 				Entity entity = Entity.getEntity(mcEntity);
 				
@@ -36,7 +42,7 @@ public class World {
 					entities.add((T) entity);
 				}
 			}
-		}
+		}*/
 		
 		return entities;
 	}

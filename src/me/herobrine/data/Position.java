@@ -16,23 +16,44 @@ public class Position {
 		
 	}
 
-	public Rotation getRotation(Position otherPosition) {
+	public Rotation getRotation(Position other) {
 		Rotation rotation = new Rotation();
-		rotation.pitch = this.getElevation(otherPosition);
-		rotation.yaw = this.getBearing(otherPosition);
+		rotation.pitch = this.getElevation(other);
+		rotation.yaw = this.getBearing(other);
 		return rotation;
 	}
 	
-	public float getBearing(Position otherPosition) {
-		return (float) toDegrees(atan2(otherPosition.z - this.z, otherPosition.x - this.x)) - 90f;
+	public float getBearing(Position other) {
+		return (float) toDegrees(atan2(other.z - this.z, other.x - this.x)) - 90f;
 	}
 	
-	public float getElevation(Position otherPosition) {
-		double xDiff = otherPosition.x - this.x;
-		double zDiff = otherPosition.z - this.z;
-		return (float) -toDegrees(atan2(otherPosition.y - this.y, Math.sqrt(xDiff * xDiff + zDiff * zDiff)));
+	public float getElevation(Position other) {
+		double dx = other.x - this.x;
+		double dy = other.z - this.z;
+		return (float) -toDegrees(atan2(other.y - this.y, Math.sqrt(dx * dx + dy * dy)));
 	}
 	
+	public double distanceTo(Position other) {
+		double dx = other.x - this.x;
+		double dy = other.y - this.y;
+		double dz = other.z - this.z;
+		return Math.sqrt(dx * dx + dy * dy + dz * dz);
+	}
+	
+	public Position addX(double x) {
+		this.x += x;
+		return this;
+	}
+	
+	public Position addY(double y) {
+		this.y += y;
+		return this;
+	}
+	
+	public Position addZ(double z) {
+		this.z += z;
+		return this;
+	}
 	
 	@Override
 	public Position clone() {
@@ -41,7 +62,7 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return String.format("{ x: %.2f, y: %.2f, z: %.2f }", x, y, z);
+		return String.format("Position { x: %.2f, y: %.2f, z: %.2f }", x, y, z);
 	}
 	
 }

@@ -95,6 +95,13 @@ public class MainFrame extends JFrame {
 		menuBar.add(helpMenu);
 		
 		JMenuItem aboutMenuItem = new JMenuItem("About");
+		aboutMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent paramActionEvent) {
+				AboutDialog dialog = new AboutDialog(MainFrame.this);
+				dialog.setVisible(true);
+			}
+		});
 		helpMenu.add(aboutMenuItem);
 
 		final JSplitPane splitPane = new JSplitPane();
@@ -148,6 +155,10 @@ public class MainFrame extends JFrame {
 	private Console createConsole() {
 		Console console = new Console();
 		return console;
+	}
+
+	public JLabel getStatusLabel() {
+		return statusLabel;
 	}
 
 }

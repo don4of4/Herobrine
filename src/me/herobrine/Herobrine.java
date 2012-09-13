@@ -16,9 +16,15 @@ import net.minecraft.src.ThreadShutdown;
 public class Herobrine implements Runnable {
 
 	public static Minecraft mc;
+	
+	private static MainFrame mainFrame;
 
 	public static void init(Minecraft mc) {
 		Herobrine.mc = mc;
+	}
+	
+	public static void setStatus(String status) {
+		mainFrame.getStatusLabel().setText(status);
 	}
 	
 	public static void main(String[] args) {
@@ -30,7 +36,7 @@ public class Herobrine implements Runnable {
 			ReflectionHelper.setField(Minecraft.class, null, "minecraftDir", minecraftDir);			
 		}
 
-		MainFrame mainFrame = new MainFrame();
+		Herobrine.mainFrame = new MainFrame();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
 
@@ -39,14 +45,14 @@ public class Herobrine implements Runnable {
 		PluginManager.loadPlugin(new TestPlugin());
 		new Thread(new Herobrine()).start();
 	}
-
+	
 	@Override
 	public void run() {
 		while(true) {
 			try {
 				TaskManager.processTask();
 				EventManager.process();
-				Thread.sleep(60 / 1000);
+				Thread.sleep(120 / 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

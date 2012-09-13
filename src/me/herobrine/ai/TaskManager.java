@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+import me.herobrine.Herobrine;
 import me.herobrine.ai.tasks.IdleTask;
 
 public class TaskManager {
@@ -21,6 +22,12 @@ public class TaskManager {
 	public static void processTask() throws TaskQueueDepletedException, TaskUnsuccessfulException {
 		if(!tasks.isEmpty()) {
 			Task task = tasks.peek();
+			if(task != null) {
+				Herobrine.setStatus(task.toString());
+			} else {
+				Herobrine.setStatus("Idle...");
+			}
+			
 			Task newTask;
 			try {
 				newTask = task.execute();

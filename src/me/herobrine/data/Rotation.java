@@ -21,7 +21,7 @@ public class Rotation {
 
 	@Override
 	public String toString() {
-		return String.format("{ pitch: %.2f, yaw: %.2f, roll: %.2f }", pitch, yaw, roll);
+		return String.format("Rotation { pitch: %.2f, yaw: %.2f, roll: %.2f }", pitch, yaw, roll);
 	}
 	
 }

@@ -1,11 +1,7 @@
 package me.herobrine.plugins.test;
 
-import java.util.Random;
-
-import me.herobrine.ai.Task;
-import me.herobrine.ai.TaskDelayed;
 import me.herobrine.ai.TaskManager;
-import me.herobrine.ai.TaskUnsuccessfulException;
+import me.herobrine.ai.tasks.MoveEntityTask;
 import me.herobrine.event.EventHandler;
 import me.herobrine.event.EventManager;
 import me.herobrine.event.controller.ChatEvent;
@@ -13,6 +9,8 @@ import me.herobrine.plugin.Plugin;
 import me.herobrine.plugin.PluginDescription;
 import me.herobrine.plugin.PluginVersion;
 import me.herobrine.world.Controller;
+import me.herobrine.world.World;
+import me.herobrine.world.entities.EntityPlayer;
 
 
 public class TestPlugin extends Plugin implements EventHandler {
@@ -37,23 +35,21 @@ public class TestPlugin extends Plugin implements EventHandler {
 	}
 	
 	public void handleEvent(ChatEvent event) {
-		if(event.getMessage().startsWith("<arco123> ")) {
-			
-			TaskManager.schedule(new TaskDelayed(new Task() {
-
-				@Override
-				public Task execute() throws TaskUnsuccessfulException {
-					Controller.say("STFU ARCO.");
-					return null;
+		if(event.getMessage().startsWith("<") && event.getMessage().contains(">") && event.getMessage().contains("get here")) {
+			String username = event.getMessage().substring(1, event.getMessage().indexOf('>'));
+			EntityPlayer target = null;
+			for(EntityPlayer player : World.getEntities(EntityPlayer.class)) {
+				if(player.getUsername().equals(username)) {
+					target = player;
+					break;
 				}
-
-				@Override
-				public boolean handleException(TaskUnsuccessfulException exception) {
-					return false;
-				}
-				
-			}, 1000 + new Random().nextInt(1000)));
+			}
 			
+			if(target == null) {
+				Controller.say(username + ", I can't find you!");
+			} else {
+				TaskManager.schedule(new MoveEntityTask(target));
+			}
 		}
 	}
 
