@@ -4,7 +4,11 @@ import me.herobrine.ai.TaskManager;
 import me.herobrine.ai.tasks.MoveEntityTask;
 import me.herobrine.event.EventHandler;
 import me.herobrine.event.EventManager;
+import me.herobrine.event.connection.ConnectEvent;
+import me.herobrine.event.connection.DisconnectEvent;
+import me.herobrine.event.connection.LoginEvent;
 import me.herobrine.event.controller.ChatEvent;
+import me.herobrine.event.interfaces.OpenInterfaceEvent;
 import me.herobrine.plugin.Plugin;
 import me.herobrine.plugin.PluginDescription;
 import me.herobrine.plugin.PluginVersion;
@@ -52,5 +56,18 @@ public class TestPlugin extends Plugin implements EventHandler {
 			}
 		}
 	}
+	
+	public void handleEvent(ConnectEvent event) {
+		System.out.println("Connecting...");
+	}
+	
+	public void handleEvent(LoginEvent event) {
+		System.out.println("Logged in.");
+	}
+	
+	//This doesn't work atm
+	/*public void handleEvent(DisconnectEvent event) {
+		System.out.println("Disconnected.");
+	}*/
 
 }

@@ -20,7 +20,11 @@ import java.util.Random;
 import javax.crypto.SecretKey;
 
 import me.herobrine.event.EventManager;
+import me.herobrine.event.connection.ConnectEvent;
+import me.herobrine.event.connection.DisconnectEvent;
+import me.herobrine.event.connection.KickedEvent;
 import me.herobrine.event.controller.ChatEvent;
+import me.herobrine.event.interfaces.OpenInterfaceEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -148,6 +152,9 @@ public class NetClientHandler extends NetHandler
 
     public void handleLogin(Packet1Login par1Packet1Login)
     {
+    	/* Herobrine Begin */
+    	EventManager.queue(new ConnectEvent());
+    	/* Herobrine End */
         this.mc.playerController = new PlayerControllerMP(this.mc, this);
         this.mc.statFileWriter.readStat(StatList.joinMultiplayerStat, 1);
         this.worldClient = new WorldClient(this, new WorldSettings(0L, par1Packet1Login.gameType, false, par1Packet1Login.field_73560_c, par1Packet1Login.terrainType), par1Packet1Login.dimension, par1Packet1Login.difficultySetting, this.mc.mcProfiler);
@@ -586,6 +593,9 @@ public class NetClientHandler extends NetHandler
 
     public void handleKickDisconnect(Packet255KickDisconnect par1Packet255KickDisconnect)
     {
+    	/* Herobrine Begin */
+    	EventManager.queue(new KickedEvent(par1Packet255KickDisconnect.reason));
+    	/* Herobrine End */
         this.netManager.networkShutdown("disconnect.kicked", new Object[0]);
         this.field_72554_f = true;
         this.mc.loadWorld((WorldClient)null);
@@ -716,6 +726,9 @@ public class NetClientHandler extends NetHandler
      */
     public void disconnect()
     {
+    	/* Herobrine Begin */
+    	EventManager.queue(new DisconnectEvent());
+    	/* Herobrine End */
         this.field_72554_f = true;
         this.netManager.wakeThreads();
         this.netManager.networkShutdown("disconnect.closed", new Object[0]);
@@ -873,7 +886,9 @@ public class NetClientHandler extends NetHandler
         // TODO: GuiOpen Event
     	
         EntityClientPlayerMP var2 = this.mc.thePlayer;
-
+        /* Herobrine Begin */
+        EventManager.queue(new OpenInterfaceEvent());
+        /* Herobrine End */
         switch (par1Packet100OpenWindow.inventoryType)
         {
             case 0:
