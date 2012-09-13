@@ -287,7 +287,7 @@ public abstract class Minecraft implements Runnable, IPlayerUsage
         this.fullscreen = par5;
         theMinecraft = this;
         
-        herobrine.Hooks.init(this);
+        me.herobrine.Hooks.init(this);
     }
 
     private void startTimerHackThread()

@@ -14,28 +14,28 @@ public class MovementInputFromOptions extends MovementInput
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;
 
-        if (this.gameSettings.keyBindForward.pressed || herobrine.world.Controller.forward)
+        if (this.gameSettings.keyBindForward.pressed || me.herobrine.world.Controller.forward)
         {
             ++this.moveForward;
         }
 
-        if (this.gameSettings.keyBindBack.pressed || herobrine.world.Controller.backwards)
+        if (this.gameSettings.keyBindBack.pressed || me.herobrine.world.Controller.backwards)
         {
             --this.moveForward;
         }
 
-        if (this.gameSettings.keyBindLeft.pressed || herobrine.world.Controller.left)
+        if (this.gameSettings.keyBindLeft.pressed || me.herobrine.world.Controller.left)
         {
             ++this.moveStrafe;
         }
 
-        if (this.gameSettings.keyBindRight.pressed || herobrine.world.Controller.right)
+        if (this.gameSettings.keyBindRight.pressed || me.herobrine.world.Controller.right)
         {
             --this.moveStrafe;
         }
 
-        this.jump = this.gameSettings.keyBindJump.pressed || herobrine.world.Controller.jump;
-        this.sneak = this.gameSettings.keyBindSneak.pressed || herobrine.world.Controller.sneak;
+        this.jump = this.gameSettings.keyBindJump.pressed || me.herobrine.world.Controller.jump;
+        this.sneak = this.gameSettings.keyBindSneak.pressed || me.herobrine.world.Controller.sneak;
 
         if (this.sneak)
         {

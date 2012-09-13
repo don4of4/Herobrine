@@ -1,7 +1,5 @@
 package net.minecraft.src;
 
-import herobrine.event.EventManager;
-import herobrine.event.controller.ChatEvent;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -20,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.crypto.SecretKey;
+
+import me.herobrine.event.EventManager;
+import me.herobrine.event.controller.ChatEvent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
