@@ -18,6 +18,8 @@ public class Herobrine implements Runnable {
 	public static Minecraft mc;
 	
 	private static MainFrame mainFrame;
+	
+	private static boolean running;
 
 	public static void init(Minecraft mc) {
 		Herobrine.mc = mc;
@@ -37,22 +39,39 @@ public class Herobrine implements Runnable {
 		}
 
 		Herobrine.mainFrame = new MainFrame();
-		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
 
         Runtime.getRuntime().addShutdownHook(new ThreadShutdown());
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Herobrine.shutdown();
+			}
+        	
+        }));
+        
+        Herobrine.running = true;
         
 		PluginManager.loadPlugin(new TestPlugin());
 		new Thread(new Herobrine()).start();
 	}
 	
+	public static void shutdown() {
+		Herobrine.running = false;
+		
+		// TODO: cleanup
+		
+		System.exit(0);
+	}
+	
 	@Override
 	public void run() {
-		while(true) {
+		while(Herobrine.running) {
 			try {
 				TaskManager.processTask();
 				EventManager.process();
-				Thread.sleep(120 / 1000);
+				Thread.sleep(1000 / 20);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

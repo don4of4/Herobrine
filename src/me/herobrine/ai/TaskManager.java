@@ -11,7 +11,7 @@ import me.herobrine.ai.tasks.IdleTask;
 
 public class TaskManager {
 
-	private static Stack<Task> tasks = new Stack<Task>();
+	public static Stack<Task> tasks = new Stack<Task>();
 	private static Stack<Task> tasksQueue = new Stack<Task>();
 	private static List<TaskDelayed> delayedTasksQueue = new ArrayList<TaskDelayed>();
 	

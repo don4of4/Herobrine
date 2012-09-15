@@ -327,4 +327,9 @@ public abstract class Entity {
 		return ret;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s { position: %s }", this.getClass().getSimpleName(), this.getPosition());
+	}
+
 }

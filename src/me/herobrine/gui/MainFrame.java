@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+
+import me.herobrine.Herobrine;
 import net.minecraft.client.MinecraftApplet;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
@@ -24,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import javax.swing.JSeparator;
 
 
 public class MainFrame extends JFrame {
@@ -33,12 +36,15 @@ public class MainFrame extends JFrame {
 	private JMenuBar menuBar;
 	private JProgressBar statusProgressBar;
 	private JLabel statusLabel;
+	
+	private TaskStackDialog taskStackFrame;
 
 	/**
 	 * Create the frame.
 	 */
 	public MainFrame() {
 		super("Herobrine");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		super.setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/me/herobrine/gui/herobrine.png")));
 		super.setBounds(100, 100, 524, 324);
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -82,11 +88,24 @@ public class MainFrame extends JFrame {
 		JMenuItem settingsMenuItem = new JMenuItem("Settings");
 		settingsMenuItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent paramActionEvent) {
+			public void actionPerformed(ActionEvent e) {
 				SettingsDialog dialog = new SettingsDialog(MainFrame.this);
 				dialog.setVisible(true);
 			}
 		});
+		
+		JMenuItem taskStackMenuItem = new JMenuItem("Task Stack");
+		taskStackMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				taskStackFrame.setVisible(true);
+			}
+		});
+		taskStackMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
+		windowMenu.add(taskStackMenuItem);
+		
+		JSeparator separator = new JSeparator();
+		windowMenu.add(separator);
 		settingsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
 		windowMenu.add(settingsMenuItem);
 		
@@ -97,7 +116,7 @@ public class MainFrame extends JFrame {
 		JMenuItem aboutMenuItem = new JMenuItem("About");
 		aboutMenuItem.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent paramActionEvent) {
+			public void actionPerformed(ActionEvent e) {
 				AboutDialog dialog = new AboutDialog(MainFrame.this);
 				dialog.setVisible(true);
 			}
@@ -133,8 +152,12 @@ public class MainFrame extends JFrame {
 		super.validate();
 		super.pack();
 
+		super.setLocationRelativeTo(null);
+
 		minecraftApplet.init();
 		minecraftApplet.start();
+		
+		this.taskStackFrame = new TaskStackDialog(this);
 	}
 
 	private Applet createMinecraftApplet() {
@@ -161,4 +184,9 @@ public class MainFrame extends JFrame {
 		return statusLabel;
 	}
 
+	@Override
+	public void dispose() {
+		Herobrine.shutdown();
+	}
+	
 }

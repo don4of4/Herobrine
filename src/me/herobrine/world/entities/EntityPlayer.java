@@ -45,4 +45,10 @@ public class EntityPlayer extends EntityLiving {
 		}
 	}
 	
+
+	@Override
+	public String toString() {
+		return String.format("%s { username: \"%s\", position: %s }", this.getClass().getSimpleName(), this.getUsername(), this.getPosition());
+	}
+	
 }
